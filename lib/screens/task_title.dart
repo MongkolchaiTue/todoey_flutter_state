@@ -23,7 +23,7 @@ class _TasksTitleState extends State<TasksTitle> {
       ),
       trailing:  TaskCheckbox(
           checkboxState: isChecked,
-          toggleCheckboxState: () => (checkboxState) {
+          toggleCheckboxState: (checkboxState) {
             setState(() {
               isChecked = checkboxState;
             });
@@ -35,17 +35,21 @@ class _TasksTitleState extends State<TasksTitle> {
 }
 
 class TaskCheckbox extends StatelessWidget {
-  TaskCheckbox({super.key, required this.checkboxState, required this.toggleCheckboxState});
+  const TaskCheckbox({super.key, required this.checkboxState, required this.toggleCheckboxState});
 
-  bool checkboxState;
-  Function() toggleCheckboxState;
+  final bool checkboxState;
+  final ValueChanged<bool> toggleCheckboxState;
 
   @override
   Widget build(BuildContext context) {
     return Checkbox(
       activeColor: Colors.lightBlueAccent,
       value: checkboxState,
-      onChanged: (newValue) => toggleCheckboxState,
+      onChanged: (bool? newValue) {
+        print(checkboxState);
+        print(newValue);
+        toggleCheckboxState(newValue!);
+      },
     );
   }
 }
