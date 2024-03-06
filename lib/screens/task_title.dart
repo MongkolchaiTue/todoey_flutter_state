@@ -36,9 +36,8 @@ class _TasksTitleState extends State<TasksTitle> {
 
 class TaskCheckbox extends StatelessWidget {
   const TaskCheckbox({super.key, required this.checkboxState, required this.toggleCheckboxState});
-
   final bool checkboxState;
-  final ValueChanged<bool> toggleCheckboxState;
+  final void Function(bool) toggleCheckboxState;
 
   @override
   Widget build(BuildContext context) {
