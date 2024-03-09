@@ -21,6 +21,9 @@ class TasksList extends StatelessWidget {
               checkboxCallback: (bool checkboxState) {
                 taskData.updateTask(task);
               },
+              longPressCallback: () {
+                taskData.deleteTask(task);
+              },
             );
           },
           itemCount: taskData.taskCount,
@@ -29,22 +32,3 @@ class TasksList extends StatelessWidget {
     );
   }
 }
-
-// return TaskTitle(
-// taskTitle: Provider.of<TaskData>(context).tasks[index].name,
-// isChecked: Provider.of<TaskData>(context).tasks[index].isDone,
-// checkboxCallback: (bool checkboxState) {},
-// );
-// },
-// itemCount: Provider.of<TaskData>(context).tasks.length,
-// );
-
-// return TaskTitle(
-// taskTitle: widget.tasks[index].name,
-// isChecked: widget.tasks[index].isDone,
-// checkboxCallback: (bool checkboxState) {
-// setState(() {
-// widget.tasks[index].toggleDone();
-// });
-// },
-// );
