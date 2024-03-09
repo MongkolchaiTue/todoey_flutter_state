@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import '../models/Task.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({super.key});
+  AddTaskScreen({super.key, required this.newTaskCallback});
+
+  final void Function(String) newTaskCallback;
+  final textFieldController = TextEditingController();
+
+  void dispose() {
+    textFieldController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +34,10 @@ class AddTaskScreen extends StatelessWidget {
                 color: Colors.lightBlueAccent,
               ),
             ),
-            const TextField(
+            TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              controller: textFieldController,
             ),
             TextButton(
               style: ButtonStyle(
@@ -45,8 +52,7 @@ class AddTaskScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // TaskTitle(taskTitle: tasks[2].name, isChecked: tasks[2].isDone,),
-                print('Add task');
+                newTaskCallback(textFieldController.text);
               },
              ),
           ],

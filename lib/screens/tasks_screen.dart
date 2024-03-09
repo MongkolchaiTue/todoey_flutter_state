@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'tasks_list.dart';
 import 'add_task_screen.dart';
+import '../models/Task.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(name: 'Buy milk'),
+    Task(name: 'Buy eggs'),
+    Task(name: 'Buy bread'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +34,16 @@ class TasksScreen extends StatelessWidget {
                         child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: const AddTaskScreen(),
+                      child: AddTaskScreen(
+                          newTaskCallback: (newTaskTitle) {
+                            setState(() {
+                              tasks.add(Task(name: newTaskTitle));
+                            });
+                            Navigator.pop(context);
+                      }
+                      ),
                     )));
           }
-          // onPressed: (){
-          //   showModalBottomSheet(
-          //       context: context,
-          //       builder: (context) => const AddTaskScreen(),
-          //   );
-          // },
 
           ),
       body: Container(
@@ -61,11 +74,11 @@ class TasksScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   )),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
               child: Text(
-                '12 Tasks',
-                style: TextStyle(
+                '${tasks.length} Tasks',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                 ),
@@ -83,7 +96,7 @@ class TasksScreen extends StatelessWidget {
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0),
                     )),
-                child: const TasksList(),
+                child: TasksList(tasks: tasks),
               ),
             ),
           ],
