@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/task_data.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  AddTaskScreen({super.key, required this.newTaskCallback});
+  AddTaskScreen({super.key});
 
-  final void Function(String) newTaskCallback;
   final textFieldController = TextEditingController();
 
   void dispose() {
@@ -52,7 +53,8 @@ class AddTaskScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                newTaskCallback(textFieldController.text);
+                Provider.of<TaskData>(context, listen: false).addNewTask(textFieldController.text);
+                Navigator.pop(context);
               },
              ),
           ],

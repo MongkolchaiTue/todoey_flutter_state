@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'tasks_list.dart';
 import 'add_task_screen.dart';
-import '../models/Task.dart';
+import '../models/task_data.dart';
+import 'package:provider/provider.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
@@ -11,11 +12,7 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy milk'),
-    Task(name: 'Buy eggs'),
-    Task(name: 'Buy bread'),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +31,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen(
-                          newTaskCallback: (newTaskTitle) {
-                            setState(() {
-                              tasks.add(Task(name: newTaskTitle));
-                            });
-                            Navigator.pop(context);
-                      }
-                      ),
+                      child: AddTaskScreen(),
                     )));
           }
 
@@ -77,7 +67,7 @@ class _TasksScreenState extends State<TasksScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
-                '${tasks.length} Tasks',
+                '${Provider.of<TaskData>(context).tasks.length} Tasks',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -96,7 +86,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0),
                     )),
-                child: TasksList(tasks: tasks),
+                child: const TasksList(),
               ),
             ),
           ],
